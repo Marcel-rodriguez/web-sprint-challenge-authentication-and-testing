@@ -10,9 +10,9 @@ You are not allowed to collaborate during the sprint challenge.
 
 ## Project Setup
 
-- [ ] Run `npm install` to install your dependencies.
-- [ ] Build your database executing `npm run migrate`.
-- [ ] Run tests locally executing `npm test`.
+-   [ ] Run `npm install` to install your dependencies.
+-   [ ] Build your database executing `npm run migrate`.
+-   [ ] Run tests locally executing `npm test`.
 
 ## Project Instructions
 
@@ -28,32 +28,42 @@ We will hash the user's password using `bcryptjs`, and use JSON Web Tokens and t
 
 Your finished project must include all of the following requirements (further instructions are found inside each file):
 
-- [ ] An authentication workflow with functionality for account creation and login, implemented inside `api/auth/auth-router.js`.
-- [ ] Middleware used to restrict access to resources from non-authenticated requests, implemented inside `api/middleware/restricted.js`.
-- [ ] A minimum of 2 tests per API endpoint, written inside `api/server.test.js`.
+-   [ ] An authentication workflow with functionality for account creation and login, implemented inside `api/auth/auth-router.js`.
+-   [ ] Middleware used to restrict access to resources from non-authenticated requests, implemented inside `api/middleware/restricted.js`.
+-   [ ] A minimum of 2 tests per API endpoint, written inside `api/server.test.js`.
 
 **IMPORTANT Notes:**
 
-- Do not exceed 2^8 rounds of hashing with `bcryptjs`.
-- If you use environment variables make sure to provide fallbacks in the code (e.g. `process.env.SECRET || "shh"`).
-- You are welcome to create additional files but **do not move or rename existing files** or folders.
-- Do not alter your `package.json` file except to install extra libraries. Do not update existing packages.
-- The database already has the `users` table, but if you run into issues, the migration is available.
-- In your solution, it is essential that you follow best practices and produce clean and professional results.
-- Schedule time to review, refine, and assess your work and perform basic professional polishing.
+-   Do not exceed 2^8 rounds of hashing with `bcryptjs`.
+-   If you use environment variables make sure to provide fallbacks in the code (e.g. `process.env.SECRET || "shh"`).
+-   You are welcome to create additional files but **do not move or rename existing files** or folders.
+-   Do not alter your `package.json` file except to install extra libraries. Do not update existing packages.
+-   The database already has the `users` table, but if you run into issues, the migration is available.
+-   In your solution, it is essential that you follow best practices and produce clean and professional results.
+-   Schedule time to review, refine, and assess your work and perform basic professional polishing.
 
 ## Submission format
 
-- [ ] Submit via Codegrade by pushing commits to your `main` branch on Github.
-- [ ] Check Codegrade before the deadline to compare its results against your local tests.
-- [ ] Check Codegrade on the days following the Sprint Challenge for reviewer feedback.
-- [ ] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
+-   [ ] Submit via Codegrade by pushing commits to your `main` branch on Github.
+-   [ ] Check Codegrade before the deadline to compare its results against your local tests.
+-   [ ] Check Codegrade on the days following the Sprint Challenge for reviewer feedback.
+-   [ ] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
 
 ## Interview Questions
 
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics.
 
 1. Differences between using _sessions_ or _JSON Web Tokens_ for authentication.
+   the main difference between these two is that with sessions the server stores the details and with tokens the client stores the details. Also the sessions are a lot less resource consuming when it comes to badwith as the sessions are smaller and the tokens are a lot bigger.
+
 2. What does `bcryptjs` do to help us store passwords in a secure manner?
+
+bcrypt helps us hash or scramble sensitive information so if a unwanted user gets their hands on the hashed password they would have a hard time decrypting it since bcrypt has ran it a few times through an algorithm for hashing
+
 3. How are unit tests different from integration and end-to-end testing?
+
+unit tests focus on 1 thing where as integration testing focuses on how things interact with eachother. Lastly end to end testing tests everything from front end to back end.
+
 4. How does _Test Driven Development_ change the way we write applications and tests?
+
+Test driven development means that you first start by writing 1 test and when the test you wrote is ready you code to satisfy the test. once the test is passing you can then refactor your code to make it more efficient
