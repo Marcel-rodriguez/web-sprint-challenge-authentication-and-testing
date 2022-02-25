@@ -51,7 +51,7 @@ describe('[POST] /Register', () => {
   })
   test('returns the new user after adding to the db', async () => {
     const newUser = await request(server).post('/api/auth/register').send(user1)
-    expect(newUser.body).toEqual({user_id: 1, username: 'test1'})
+    expect(newUser.body.user_id).toBe(1)
   })
 })
 

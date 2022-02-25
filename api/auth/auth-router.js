@@ -6,7 +6,7 @@ const userModel = require('../users/users-model')
 const jwt = require('jsonwebtoken');
 const { checkNameUnique, checkPayloadValid, checkNameExists } = require('../middleware/middlewares');
 
-router.post('/register', checkNameUnique, checkPayloadValid, (req, res, next) => {
+router.post('/register', checkPayloadValid, checkNameUnique, (req, res, next) => {
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.

@@ -24,7 +24,6 @@ async function add(user){
     .insert(user)
 
     const newUser = await db('users')
-    .select('user_id', 'username')
     .where('user_id', id)
     .first()
     return newUser

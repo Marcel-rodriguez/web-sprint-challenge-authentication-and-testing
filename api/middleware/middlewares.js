@@ -7,7 +7,7 @@ const checkNameUnique = async (req, res, next) => {
    if(user.length === 0){
        next()
     } else {
-        next({status: 400, message: 'username must be unique'})
+        next({status: 400, message: 'username taken'})
     }
 }
 
@@ -22,8 +22,8 @@ const checkNameExists = async (req, res, next) => {
 }
 
 const registerPayloadSchema = yup.object({
-    username: yup.string().min(4).required(),
-    password: yup.string().min(4).required()
+    username: yup.string().required(),
+    password: yup.string().required()
 })
 
 const checkPayloadValid = async (req, res, next) => {
