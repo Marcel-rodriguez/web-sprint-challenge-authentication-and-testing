@@ -1,7 +1,11 @@
 const router = require('express').Router();
+// const {} = require('../middleware/restricted')
+const {JWT_SECRET} = require('../secrets/index')
+const bcrypt = require('bcryptjs')
+const userModel = require('../users/users-model')
+const jwt = require('jsonwebtoken')
 
-router.post('/register', (req, res) => {
-  res.end('implement register, please!');
+router.post('/register', (req, res, next) => {
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -27,10 +31,18 @@ router.post('/register', (req, res) => {
     4- On FAILED registration due to the `username` being taken,
       the response body should include a string exactly as follows: "username taken".
   */
+
+      const {username, password} = req.body
+      const hash = bcrypt.hashSync(password, 8)
+      userModel.add({username, password: hash})
+      .then(newUser => {
+        res.status(201).json(newUser)
+      })
+      .catch(next)
+
 });
 
-router.post('/login', (req, res) => {
-  res.end('implement login, please!');
+router.post('/login', async (req, res, next) => {
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -54,6 +66,28 @@ router.post('/login', (req, res) => {
     4- On FAILED login due to `username` not existing in the db, or `password` being incorrect,
       the response body should include a string exactly as follows: "invalid credentials".
   */
+    const { username, password} = req.body
+    const user = await userModel.findBy({username: username})
+    if(bcrypt.compareSync(password, user.password)){
+      const token = makeToken(user)
+      res.json({
+        message: `Welcome, ${user.username}`,
+        token
+      })
+    } else {
+      next({status: 401, message: 'Invalid Credentials'})
+    }
 });
+
+function makeToken(user){
+  const payload = {
+    subject: user.user_id,
+    username: user.username
+  }
+  const options = {
+    expiresIn: '1d'
+  }
+  return jwt.sign(payload, JWT_SECRET, options)
+}
 
 module.exports = router;
