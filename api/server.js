@@ -8,6 +8,7 @@ const restrict = require('./middleware/restricted.js');
 //routes
 const authRouter = require('./auth/auth-router.js');
 const jokesRouter = require('./jokes/jokes-router.js');
+const usersRouter = require('./users/users-router')
 
 const server = express();
 
@@ -18,6 +19,7 @@ server.use(express.json());
 
 //routers
 server.use('/api/auth', authRouter);
+server.use('/api/users', usersRouter);
 server.use('/api/jokes', restrict, jokesRouter); // only logged-in users should have access!
 
 //fallback error

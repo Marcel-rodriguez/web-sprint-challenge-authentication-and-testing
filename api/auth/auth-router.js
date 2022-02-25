@@ -3,9 +3,10 @@ const router = require('express').Router();
 const {JWT_SECRET} = require('../secrets/index')
 const bcrypt = require('bcryptjs')
 const userModel = require('../users/users-model')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { checkNameUnique, checkPayloadValid, checkNameExists } = require('../middleware/middlewares');
 
-router.post('/register', (req, res, next) => {
+router.post('/register', checkNameUnique, checkPayloadValid, (req, res, next) => {
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -42,7 +43,7 @@ router.post('/register', (req, res, next) => {
 
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', checkPayloadValid, checkNameExists, async (req, res, next) => {
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.

@@ -27,8 +27,19 @@ async function add(user){
     .select('user_id', 'username')
     .where('user_id', id)
     .first()
-
     return newUser
+}
+
+async function remove(id){
+    const deletedUser = await db('users')
+    .select('user_id', 'username')
+    .where('user_id', id)
+    .first()
+    const deleteUser = await db('users')
+    .where('user_id', id)
+    .del()
+
+    return deletedUser
 }
 
 module.exports = {
